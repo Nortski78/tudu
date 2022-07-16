@@ -1,17 +1,19 @@
+//index.js
+
 import { loadPage } from "./application";
-import { addProject, getProjects } from "./projectscontroller";
-import { Project } from "./project";
+import { publish, getEvents } from "./pubsub";
 
 document.addEventListener('DOMContentLoaded', loadPage());
 
-let project1 = Project(1, "Project1");
-let project2 = Project(2, "Project2");
-let project3 = Project(3, "Project3");
+const body = document.querySelector('body');
+const div = document.createElement('div');
+const button = document.createElement('button');
+button.textContent = "Add Project";
 
-addProject(project1);
-addProject(project2);
-addProject(project3);
+button.addEventListener('click', () => {
+    publish('projectAdded', 1);
+    console.log(getEvents());
+});
 
-getProjects().forEach(item => {
-    console.log(item.getName());
-})
+div.appendChild(button);
+body.appendChild(div);
