@@ -2,6 +2,7 @@
 
 import { loadPage } from "./application";
 import { publish, getEvents } from "./pubsub";
+import "./projectscontroller";
 
 document.addEventListener('DOMContentLoaded', loadPage());
 

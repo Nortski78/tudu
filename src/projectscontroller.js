@@ -3,8 +3,8 @@
 import { subscribe } from "./pubsub";
 
 let projectsContainer = [];
-
-subscribe('projectAdded', () => console.log('working'));
+console.log('I am Executed muuuuuhahahah');
+subscribe('projectAdded', (data) => console.log('working'));
 
 function addProject(projectObj) {
     projectsContainer.push(projectObj);
