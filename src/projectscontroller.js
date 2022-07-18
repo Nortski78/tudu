@@ -2,17 +2,18 @@
 
 import { subscribe } from "./pubsub";
 
-function init()
-{
-  subscribe('projectAdded', () => console.log('working'));
-}
-
 let projectsContainer = [];
 
+function init()
+{
+  subscribe('projectAdded', addProject);
+};
+
 function addProject(projectObj) {
-    projectsContainer.push(projectObj);
+  projectsContainer.push(projectObj);
+  console.log("Project added");
 }
 
 function getProjects() { return projectsContainer; }
 
-export { getProjects, addProject };
+export { getProjects, addProject, init };

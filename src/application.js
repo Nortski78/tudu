@@ -1,22 +1,38 @@
-import MenuItem from "./menuitem";
+import { MenuItem } from "./menuitem";
 import Menu from "./menu";
 import { renderMenu } from "./menuview";
-import { publish, subscribe } from "./pubsub";
+import { renderMenuItem } from "./menuitemview";
+import { publish, subscribe, getEvents } from "./pubsub";
 import renderHomePage from "./homepage";
 import renderTodayPage from "./todaypage";
 import renderWeekPage from "./weekpage";
+import { renderForm } from "./projectform";
+import { init as initProjectController } from "./projectscontroller";
+import { init as initProjectsMenu } from "./projectsmenu";
+import { init as initProjectsMenuView } from "./projectsmenuview";
+import { renderProjectsMenu } from "./projectsmenuview";
 
 // Cache the DOM
+const body = document.querySelector('body');
 const header = document.querySelector('header');
 const navContainer = document.querySelector('nav');
 const contentContainer = document.querySelector('#main-content');
 
 function init() {
+    initProjectController();
+    initProjectsMenu();
+    //initProjectsMenuView();
     let homeBtn = MenuItem("Home");
+    homeBtn.addStyleClass('menu-item');
+    homeBtn.addStyleClass('home-btn');
     homeBtn.addEvent('click', () => {publish('homeButtonSelected')});
     let todayBtn = MenuItem("Today");
     todayBtn.addEvent('click', () => {publish('todayButtonSelected')});
+    todayBtn.addStyleClass('menu-item');
+    todayBtn.addStyleClass('today-btn');
     let weekBtn = MenuItem("Week");
+    weekBtn.addStyleClass('menu-item');
+    weekBtn.addStyleClass('week-btn');
     weekBtn.addEvent('click', () => {publish('weekButtonSelected')});
 
     let mainMenu = Menu();
@@ -24,12 +40,16 @@ function init() {
     mainMenu.addMenuItem(todayBtn);
     mainMenu.addMenuItem(weekBtn);
 
+    let addProjectButton = MenuItem("Add Project");
+    addProjectButton.addStyleClass("add-project-btn");
+    addProjectButton.addEvent('click', () => {publish('addProjectSelected')});
+
     navContainer.appendChild(renderMenu(mainMenu));
+    navContainer.appendChild(renderMenuItem(addProjectButton));
     contentContainer.appendChild(renderHomePage());
 };
 
 function loadPage() {
-    console.log('loading page');
     init();
 }
 
@@ -46,6 +66,17 @@ const updateContent = (() => {
         contentContainer.innerHTML = "";
         contentContainer.appendChild(renderWeekPage());
     })
+    subscribe('addProjectSelected', () => {
+        renderForm();
+    })
+    subscribe('projectsMenuBuilt', () => {
+        const remove = document.querySelector('projects-list');
+        //const node = document.querySelector('nav ul');
+        navContainer.removeChild(remove);        
+        //node.after(renderProjectsMenu());
+        navContainer.appendChild(renderProjectsMenu());
+    })
+    
 })();
 
 export { loadPage };

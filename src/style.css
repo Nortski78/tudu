@@ -1,3 +1,4 @@
+@charset "UTF-8";
 @import url("./reset.css");
 
 html {
@@ -12,18 +13,12 @@ h1 {
 }
 
 li {
-    margin: 0 0 20px 0;
-    padding: 10px 0 10px 0;
     list-style: none;
-    font-size: 1.5rem;
-    font-weight: bold;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    border-radius: 10px;
 }
 
 li:hover {
-    padding-left: 30px;
     background-color: #ccc;
+    box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.2);
 }
 
 nav {
@@ -82,4 +77,126 @@ footer {
 .active {
     padding-left: 30px;
     background-color: #ccc;
+}
+
+.menu-item {
+    margin: 0 0 20px 0;
+    padding: 10px 0 10px 10px;
+    border-radius: 10px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.add-project-btn {
+    font-size: 1rem;
+    border-radius: 10px;
+    padding: 10px 0 10px 10px;
+}
+
+.add-project-btn:hover {
+    background-color: #ccc;
+    box-shadow: none;
+    padding-left: 15px;
+}
+
+.home-btn:before{
+    content:''; 
+    display:inline-block; 
+    height:1em; 
+    width:1em; 
+    background-image:url('house-solid.svg'); 
+    background-size:contain; 
+    background-repeat:no-repeat; 
+    padding-left: 2em; 
+}
+
+.today-btn:before{
+    content:''; 
+    display:inline-block; 
+    height:1em; 
+    width:1em; 
+    background-image:url('calendar-day-solid.svg'); 
+    background-size:contain; 
+    background-repeat:no-repeat; 
+    padding-left: 2em; 
+}
+
+.week-btn:before{
+    content:''; 
+    display:inline-block; 
+    height:1em; 
+    width:1em; 
+    background-image:url('calendar-days-solid.svg'); 
+    background-size: contain; 
+    background-repeat:no-repeat; 
+    padding-left: 2em; 
+}
+
+.add-project-btn:before{
+    content:''; 
+    display:inline-block; 
+    height:1em; 
+    width:1em; 
+    background-image:url('plus-solid.svg'); 
+    background-size:contain; 
+    background-repeat:no-repeat; 
+    padding-left: 2em; 
+}
+
+#form-popup-container {
+    z-index: 1;
+    top: 0;
+    left: 0;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.hidden {
+    display: none;
+}
+
+#add-project-form-container {
+    width: 400px;
+    height: 250px;
+    background-color: white;
+    border-radius: 10px;
+    display: flex;
+}
+
+#add-project-form {
+    width: 100%;
+}
+
+#add-project-form-header {
+    width: 100%;
+    color: white;
+    background-color: black;
+    border-radius: 10px 10px 0 0;
+    font-size: 1;
+    padding: 10px 0 10px 10px;
+}
+
+#add-project-form-content {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.form-input {
+    font-size: 1.5rem;
+    color: black;
+    width: 100%;
+}
+
+.form-item {
+    width: 80%;
+    margin: 20px 0 0 0;
 }

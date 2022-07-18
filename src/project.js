@@ -1,8 +1,8 @@
-export function Project(projectId, projectName) {
+export function Project(projectName) {
 
     let todoContainer = [];
     let name = projectName;
-    let id = projectId;
+    //let id = projectId;
 
     const getName = () => name;
     const getId = () => id;

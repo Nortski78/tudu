@@ -1,15 +1,20 @@
+import { renderMenuItem } from "./menuitemview";
+
 function renderMenu(menu) {
     const menuList = document.createElement('ul');
 
     menu.getMenuItems().forEach(item => {
-        const menuItem = document.createElement('li');
-        menuItem.textContent = item.getName();
+
+        const menuItem = renderMenuItem(item);
         menuList.appendChild(menuItem);
 
-        item.getEvents().forEach(element => {
-            menuItem.addEventListener(element.event, element.handler);
-        }) 
     });
+
+    const projectsTitle = document.createElement('div');
+    projectsTitle.classList.add('menu-item');
+    projectsTitle.innerText = "Projects";
+    menuList.appendChild(projectsTitle);
+
     return menuList;
 }
 
