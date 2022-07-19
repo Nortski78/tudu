@@ -3,6 +3,7 @@
 import { subscribe } from "./pubsub";
 
 let projectsContainer = [];
+let id = 0;
 
 function init()
 {
@@ -10,6 +11,7 @@ function init()
 };
 
 function addProject(projectObj) {
+  projectObj.setId(++id);
   projectsContainer.push(projectObj);
   console.log("Project added");
 }

@@ -2,7 +2,7 @@ export function Project(projectName) {
 
     let todoContainer = [];
     let name = projectName;
-    //let id = projectId;
+    let id = 0;
 
     const getName = () => name;
     const getId = () => id;
@@ -23,5 +23,9 @@ export function Project(projectName) {
         name = value;
     }
 
-    return { addTodo, removeTodo, setName, getId, getName};
+    function setId(val) {
+        id = val;
+    }
+
+    return { addTodo, removeTodo, setName, getId, getName, setId};
 }

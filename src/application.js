@@ -11,6 +11,7 @@ import { init as initProjectController } from "./projectscontroller";
 import { init as initProjectsMenu } from "./projectsmenu";
 import { init as initProjectsMenuView } from "./projectsmenuview";
 import { renderProjectsMenu } from "./projectsmenuview";
+import renderProjectPage from "./projectpageview";
 
 // Cache the DOM
 const body = document.querySelector('body');
@@ -70,11 +71,17 @@ const updateContent = (() => {
         renderForm();
     })
     subscribe('projectsMenuBuilt', () => {
-        const remove = document.querySelector('projects-list');
-        //const node = document.querySelector('nav ul');
-        navContainer.removeChild(remove);        
-        //node.after(renderProjectsMenu());
-        navContainer.appendChild(renderProjectsMenu());
+        const div = document.createElement('div');
+        div.classList.add('projects-list');
+        navContainer.appendChild(div);
+        const navUl = document.querySelector('nav ul');
+        const node = document.querySelector('.projects-list');
+        navContainer.removeChild(node);
+        navUl.after(renderProjectsMenu());
+    })
+    subscribe('projectSelected', (obj) => {
+        contentContainer.innerHTML ="";
+        contentContainer.appendChild(renderProjectPage(obj));
     })
     
 })();

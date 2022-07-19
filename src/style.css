@@ -200,3 +200,12 @@ footer {
     width: 80%;
     margin: 20px 0 0 0;
 }
+
+.projects-list {
+    width: 100%;
+    min-height:auto;
+    max-height: 200px;
+    overflow: auto;
+    font-size: 1rem;
+    background-color:#eee;
+}

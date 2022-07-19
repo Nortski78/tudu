@@ -40,13 +40,15 @@ function renderForm(){
     pageContainer.appendChild(formContainer);
     body.appendChild(pageContainer); 
 
-    createBtn.addEventListener('click', () => {
+    createBtn.addEventListener('click', (e) => {
+        e.preventDefault();
         const project = Project(input.value);
         publish('projectAdded', project);
         closeForm(body, pageContainer);
     });
 
-    cancelBtn.addEventListener('click', () => {
+    cancelBtn.addEventListener('click', (e) => {
+        e.preventDefault();
         closeForm(body, pageContainer);
     });
 

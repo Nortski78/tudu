@@ -13,8 +13,9 @@ function init() {
 }
 
 function addMenuItem(obj){
-    console.log("in addMenuItem()");
+    //console.log(obj);
     let item = MenuItem(obj.getName());
+    item.addEvent('click', () => {publish('projectSelected', item)});
     projectsMenu.addMenuItem(item);
     publish('projectsMenuBuilt', projectsMenu);
 }
