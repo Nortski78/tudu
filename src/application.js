@@ -7,7 +7,9 @@ import renderHomePage from "./homepage";
 import renderTodayPage from "./todaypage";
 import renderWeekPage from "./weekpage";
 import { renderForm } from "./projectform";
-import { init as initProjectController } from "./projectscontroller";
+import { renderForm as renderTodoForm } from "./todoform";
+import { getProjects, init as initProjectController } from "./projectscontroller";
+import { init as initTodosController } from "./todoscontroller";
 import { init as initProjectsMenu } from "./projectsmenu";
 import { init as initProjectsMenuView } from "./projectsmenuview";
 import { renderProjectsMenu } from "./projectsmenuview";
@@ -18,9 +20,11 @@ const body = document.querySelector('body');
 const header = document.querySelector('header');
 const navContainer = document.querySelector('nav');
 const contentContainer = document.querySelector('#main-content');
+const getProjectsBtn = document.createElement('button');
 
 function init() {
     initProjectController();
+    initTodosController();
     initProjectsMenu();
     //initProjectsMenuView();
     let homeBtn = MenuItem("Home");
@@ -45,9 +49,24 @@ function init() {
     addProjectButton.addStyleClass("add-project-btn");
     addProjectButton.addEvent('click', () => {publish('addProjectSelected')});
 
+    let addTodoButton = MenuItem("Add Todo");
+    addTodoButton.addStyleClass("add-todo-btn");
+    addTodoButton.addEvent('click', () => {publish('createTodoSelected')});
+
     navContainer.appendChild(renderMenu(mainMenu));
     navContainer.appendChild(renderMenuItem(addProjectButton));
+    navContainer.appendChild(renderMenuItem(addTodoButton));
     contentContainer.appendChild(renderHomePage());
+
+    // Debug buttons
+    
+    getProjectsBtn.innerText = "Get Projects";
+    getProjectsBtn.addEventListener('click', () => { 
+        getProjects().forEach(item => {
+            console.log(item);
+        })
+    });
+    header.appendChild(getProjectsBtn);
 };
 
 function loadPage() {
@@ -70,6 +89,9 @@ const updateContent = (() => {
     subscribe('addProjectSelected', () => {
         renderForm();
     })
+    subscribe('createTodoSelected', () => {
+        renderTodoForm();
+    })
     subscribe('projectsMenuBuilt', () => {
         const div = document.createElement('div');
         div.classList.add('projects-list');
@@ -82,8 +104,7 @@ const updateContent = (() => {
     subscribe('projectSelected', (obj) => {
         contentContainer.innerHTML ="";
         contentContainer.appendChild(renderProjectPage(obj));
-    })
-    
+    })    
 })();
 
 export { loadPage };

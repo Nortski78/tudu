@@ -6,9 +6,12 @@ export function Project(projectName) {
 
     const getName = () => name;
     const getId = () => id;
+    const getTodos = () => todoContainer;
 
     function addTodo(todoObj){
         todoContainer.push(todoObj);
+        console.log("todo added to project");
+        console.log(todoObj);
     }
 
     function removeTodo(todoObj) {
@@ -27,5 +30,5 @@ export function Project(projectName) {
         id = val;
     }
 
-    return { addTodo, removeTodo, setName, getId, getName, setId};
+    return { addTodo, removeTodo, setName, getId, getName, getTodos, setId};
 }

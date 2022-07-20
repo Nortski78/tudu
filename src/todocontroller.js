@@ -3,9 +3,11 @@ import { subscribe } from "./pubsub";
 let todosContainer = [];
 let id = 0;
 
+const getId = () => id;
+
 function init()
 {
-  subscribe('projectAdded', addTodo);
+  subscribe('todoCreated', addTodo);
 };
 
 function addTodo(todoObj) {
@@ -16,4 +18,4 @@ function addTodo(todoObj) {
 
 function getProjects() { return todosContainer; }
 
-export { getProjects, addTodo, init };
+export { getProjects, addTodo, init, getId };
