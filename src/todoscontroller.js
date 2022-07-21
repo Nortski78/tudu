@@ -1,5 +1,4 @@
 //todoscontroller.js
-import { getProjects } from "./projectscontroller";
 import { subscribe } from "./pubsub";
 
 let todosContainer = [];
@@ -13,9 +12,8 @@ function init()
 function addTodo(todoObj) {
     todoObj.setId(++id);
     todosContainer.push(todoObj);
-    console.log("Todo added");
 }
 
-function getTodos() { return projectsContainer; }
+function getTodos() { return todosContainer; }
 
 export { getTodos, addTodo, init };

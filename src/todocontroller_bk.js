@@ -7,7 +7,7 @@ const getId = () => id;
 
 function init()
 {
-  subscribe('todoCreated', addTodo);
+  subscribe('todoAdded', addTodo);
 };
 
 function addTodo(todoObj) {

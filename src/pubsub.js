@@ -3,6 +3,12 @@ import { Event } from "./event.js";
 let events = [];
 
 const publish = (eventName, data) => {
+    
+    /* if(data) {console.log(typeof(data))};  
+    if(data) {console.log(data.getTitle())};    
+    if(data) {console.log(data.getDescription())};  
+    if(data) {console.log(data.getPriority())};  
+    if(data) {console.log(data.getDueDate())};  */ 
 
     if(!(eventName in events)) {
         events[eventName] = Event(eventName);

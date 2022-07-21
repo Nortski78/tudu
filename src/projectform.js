@@ -15,7 +15,9 @@ function renderForm(){
     const cancelBtn = document.createElement('button');
 
     input.setAttribute('type', 'text');
+    input.setAttribute('id', 'project-name-input');
     input.setAttribute('placeholder', 'Project name');
+    input.autofocus = true;
     inputDiv.classList.add('form-item');
     btnsDiv.classList.add('form-item');
     input.classList.add('form-input');

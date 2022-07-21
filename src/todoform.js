@@ -32,6 +32,7 @@ function renderForm(){
     title.setAttribute('type', 'text');
     title.setAttribute('placeholder', 'Todo title');
     title.classList.add('form-input');
+    title.autofocus = true;
 
     descDiv.classList.add('form-item');
     desc.setAttribute('rows', '10');
@@ -44,15 +45,12 @@ function renderForm(){
     projectsList.appendChild(opt);
 
     projects.forEach(item => {
-        //console.log(item);
         const opt = document.createElement('option');
         opt.textContent = item.getName();
         opt.setAttribute('value', item.getId());
         projectsList.appendChild(opt);
     })
     projectsDiv.appendChild(projectsList);
-
-    console.log(projectsList);
 
     radiosDiv.classList.add('form-item');
     priorityLow.setAttribute('name', 'priority');
@@ -114,10 +112,7 @@ function renderForm(){
     createBtn.addEventListener('click', (e) => {
         e.preventDefault();
         const priority = document.querySelector('input[name="priority"]:checked').value;
-        //const todo = Todo(title.value, desc.value, parseInt(projectsList.value), priority);
-        const todo = Todo("I", "am", "a", "Wildfire");
-        console.log(todo.getTitle());
-       // publish('todoAdded', todo);   
+        const todo = Todo(title.value, desc.value, parseInt(projectsList.value), priority);
         publish('todoAdded', todo); 
         closeForm(body, pageContainer);
     });

@@ -18,10 +18,9 @@ function addProject(projectObj) {
 }
 
 function addTodo(todoObj) {
-  console.log(`in addTodo ${todoObj}`);
   projectsContainer.forEach(item => {
     if(item.getId() === todoObj.getProject()) {      
-      item.addTodo(); // referenced addTodo() in project.js
+      item.addTodo(todoObj); // referenced addTodo() in project.js
       return;
     }
   })

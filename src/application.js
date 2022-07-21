@@ -11,7 +11,7 @@ import { renderForm as renderTodoForm } from "./todoform";
 import { getProjects, init as initProjectController } from "./projectscontroller";
 import { init as initTodosController } from "./todoscontroller";
 import { init as initProjectsMenu } from "./projectsmenu";
-import { init as initProjectsMenuView } from "./projectsmenuview";
+import { init as initHomePage } from "./homepage";
 import { renderProjectsMenu } from "./projectsmenuview";
 import renderProjectPage from "./projectpageview";
 
@@ -26,6 +26,7 @@ function init() {
     initProjectController();
     initTodosController();
     initProjectsMenu();
+    initHomePage();
     //initProjectsMenuView();
     let homeBtn = MenuItem("Home");
     homeBtn.addStyleClass('menu-item');
@@ -53,17 +54,23 @@ function init() {
     addTodoButton.addStyleClass("add-todo-btn");
     addTodoButton.addEvent('click', () => {publish('createTodoSelected')});
 
+    const projectsTitle = document.createElement('div');
+    projectsTitle.classList.add('menu-item');
+    projectsTitle.innerText = "Projects";    
+
     navContainer.appendChild(renderMenu(mainMenu));
+    navContainer.appendChild(projectsTitle);
     navContainer.appendChild(renderMenuItem(addProjectButton));
     navContainer.appendChild(renderMenuItem(addTodoButton));
     contentContainer.appendChild(renderHomePage());
 
-    // Debug buttons
-    
+    // Debug buttons    
     getProjectsBtn.innerText = "Get Projects";
     getProjectsBtn.addEventListener('click', () => { 
         getProjects().forEach(item => {
-            console.log(item);
+            item.getTodos().forEach(todo => {
+                console.log(todo.getTitle());
+            })
         })
     });
     header.appendChild(getProjectsBtn);
@@ -75,6 +82,10 @@ function loadPage() {
 
 const updateContent = (() => {
     subscribe('homeButtonSelected', () => {
+        contentContainer.innerHTML = "";
+        contentContainer.appendChild(renderHomePage());
+    })
+    subscribe('taskMenuBuilt', (isActive) => {
         contentContainer.innerHTML = "";
         contentContainer.appendChild(renderHomePage());
     })
