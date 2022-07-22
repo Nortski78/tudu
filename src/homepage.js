@@ -17,7 +17,7 @@ let tasksMenu = Menu();
 function buildTaskMenu(todoObj) {
     const taskBtn = MenuItem(todoObj.getTitle());
     tasksMenu.addMenuItem(taskBtn);
-    //publish('taskMenuBuilt');
+    publish('taskMenuBuilt');
 
     tasksMenu.getMenuItems().forEach(item => {
         console.log(item.getName());

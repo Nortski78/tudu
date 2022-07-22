@@ -1,10 +1,11 @@
 import Todo from "./todo";
 import { publish } from "./pubsub";
 import { getProjects } from "./projectscontroller";
+import { format } from 'date-fns';
 
 function renderForm(){
 
-    const projects = getProjects();
+    const projects = getProjects(); // needed for project id's
     
     const body = document.querySelector('body');
     const pageContainer = document.createElement('div');
@@ -26,6 +27,8 @@ function renderForm(){
     const priorityHighLabel = document.createElement('label');
     const radiosDiv = document.createElement('div');
     const btnsDiv = document.createElement('div');
+    const dateDiv = document.createElement('div');
+    const datePicker = document.createElement('input');
     const createBtn = document.createElement('button');
     const cancelBtn = document.createElement('button');
 
@@ -37,6 +40,12 @@ function renderForm(){
     descDiv.classList.add('form-item');
     desc.setAttribute('rows', '10');
     descDiv.appendChild(desc);
+
+    dateDiv.classList.add('form-item');
+    datePicker.setAttribute('type', 'date');
+    const setMin = format(new Date(), 'yyyy-MM-dd');
+    datePicker.setAttribute('min', setMin);
+    dateDiv.appendChild(datePicker);
 
     projectsDiv.classList.add('form-item');
     const opt = document.createElement('option');
@@ -101,7 +110,8 @@ function renderForm(){
     formContent.appendChild(inputDiv);
     formContent.appendChild(descDiv);
     formContent.appendChild(radiosDiv);
-    formContent.appendChild(projectsDiv);
+    formContent.appendChild(dateDiv);
+    if(getProjects().length > 0) {formContent.appendChild(projectsDiv)};
     formContent.appendChild(btnsDiv);
     form.appendChild(formHeader);
     form.appendChild(formContent);
@@ -112,9 +122,10 @@ function renderForm(){
     createBtn.addEventListener('click', (e) => {
         e.preventDefault();
         const priority = document.querySelector('input[name="priority"]:checked').value;
-        const todo = Todo(title.value, desc.value, parseInt(projectsList.value), priority);
+        const todo = Todo(title.value, desc.value, parseInt(projectsList.value), priority, datePicker.value);
         publish('todoAdded', todo); 
         closeForm(body, pageContainer);
+        console.log(typeof(datePicker.value));
     });
 
     cancelBtn.addEventListener('click', (e) => {
