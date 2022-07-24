@@ -69,7 +69,7 @@ function init() {
     getProjectsBtn.addEventListener('click', () => { 
         getProjects().forEach(item => {
             item.getTodos().forEach(todo => {
-                console.log(todo.getTitle());
+                console.log(todo.getData());
             })
         })
     });

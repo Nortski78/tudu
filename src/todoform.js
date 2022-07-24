@@ -1,7 +1,7 @@
 import Todo from "./todo";
 import { publish } from "./pubsub";
 import { getProjects } from "./projectscontroller";
-import { format } from 'date-fns';
+import { format, parse } from 'date-fns';
 
 function renderForm(){
 
@@ -122,7 +122,7 @@ function renderForm(){
     createBtn.addEventListener('click', (e) => {
         e.preventDefault();
         const priority = document.querySelector('input[name="priority"]:checked').value;
-        const todo = Todo(title.value, desc.value, parseInt(projectsList.value), priority, datePicker.value);
+        const todo = Todo(title.value, desc.value, parseInt(projectsList.value), priority, stringToDate(datePicker.value));
         publish('todoAdded', todo); 
         closeForm(body, pageContainer);
         console.log(typeof(datePicker.value));
@@ -138,6 +138,17 @@ function renderForm(){
 
 function closeForm(body, pageContainer) {
     body.removeChild(pageContainer);
+}
+
+function stringToDate(date){
+    //let date = "2022-07-24";
+    let result = date.replaceAll('-', '/');
+    result = parse(
+        result,
+    'yyyy/MM/dd',
+    new Date()
+  )
+  return result;
 }
 
 export { renderForm };

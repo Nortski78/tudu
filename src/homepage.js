@@ -3,9 +3,11 @@ import { MenuItem } from "./menuitem";
 import {renderMenuItem} from "./menuitemview"
 import { renderMenu } from "./menuview";
 import {publish, subscribe} from "./pubsub";
+import { getTodos } from "./todoscontroller";
 
 export function init(){
     subscribe('todoAdded', buildTaskMenu);
+    //subscribe('todosSorted', renderTasks);
 };
 
 let createTodoBtn = MenuItem('Create a new todo');
@@ -14,7 +16,7 @@ createTodoBtn.addEvent('click', () => {publish('createTodoSelected')});
 
 let tasksMenu = Menu();
 
-function buildTaskMenu(todoObj) {
+/* function buildTaskMenu(todoObj) {
     const taskBtn = MenuItem(todoObj.getTitle());
     tasksMenu.addMenuItem(taskBtn);
     publish('taskMenuBuilt');
@@ -22,6 +24,17 @@ function buildTaskMenu(todoObj) {
     tasksMenu.getMenuItems().forEach(item => {
         console.log(item.getName());
     })
+} */
+
+function buildTaskMenu() {
+    const tasks = getTodos();
+
+    tasks.forEach(item => {
+        const btn = MenuItem(item.getTitle());
+        tasksMenu.addMenuItem(btn);
+    });
+
+    publish('taskMenuBuilt');
 }
 
 const renderHomePage = () => {
