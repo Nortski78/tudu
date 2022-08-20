@@ -10,11 +10,6 @@ function renderMenu(menu) {
 
     });
 
-    //const projectsTitle = document.createElement('div');
-    //projectsTitle.classList.add('menu-item');
-   // projectsTitle.innerText = "Projects";
-    //menuList.appendChild(projectsTitle);
-
     return menuList;
 }
 

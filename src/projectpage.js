@@ -1,12 +1,15 @@
+import { getProjects } from "./projectscontroller";
 import { getTodos } from "./todoscontroller";
 import { publish } from "./pubsub";
 import { format } from 'date-fns';
 import { sortTasks } from "./utilityfunctions";
 
+const projects = getProjects();
 let sortBy = "date";
+let id = '';
 
 // Create DOM elements
-const todayPageContainer = document.createElement('div');
+const projectPageContainer = document.createElement('div');
 const pageTitle = document.createElement('h1');
 const buttonContainer = document.createElement('div');
 const addTodoBtn = document.createElement('div');
@@ -18,7 +21,7 @@ const sortStatusBtn = document.createElement('div');
 const todosListContainer = document.createElement('div');
 
 // Apply attributes
-todayPageContainer.classList.add('main-content-data');
+projectPageContainer.classList.add('main-content-data');
 addTodoBtn.classList.add('todo-button');
 addTodoBtn.classList.add('pointer');
 sortingContainer.classList.add('todo-sort-order');
@@ -30,7 +33,6 @@ sortStatusBtn.classList.add('sort-button');
 sortStatusBtn.classList.add('pointer');
 
 // Add text
-pageTitle.innerText = "Today";
 addTodoBtn.innerText = "Create new todo";
 sortHeading.innerText = "Sort by:";
 sortDateBtn.innerText = "Date";
@@ -45,32 +47,38 @@ addTodoBtn.addEventListener('click', (e) => {
 sortDateBtn.addEventListener('click', (e) => {
     e.preventDefault();
     sortBy = "date";
-    renderTodayPage();
+    renderProjectPage(id);
 })
 sortPriorityBtn.addEventListener('click', (e) => {
     e.preventDefault();
     sortBy = "priority";
-    renderTodayPage();
+    renderProjectPage(id);
 })
 sortStatusBtn.addEventListener('click', (e) => {
     e.preventDefault();
     sortBy = "completedStatus";
-    renderTodayPage();
+    renderProjectPage(id);
 })
 
-const renderTodayPage = () => {
-
+const renderProjectPage = (projectId) => {
+    
     todosListContainer.innerHTML = "";
     const todoList = getTodos();
+    id = projectId;
 
-    // Filter the array for today's todos
+    for(const project of projects) {
+        if(project.getId() == projectId) {
+            pageTitle.innerText = project.getName();
+            break;
+        }
+    }
+
+    // Filter the array for this project's todos
     let todoListFiltered = todoList.filter(todo => {
-        const todaysDate = format(new Date(), 'yyyy-MM-dd');
-        const todoDueDate = format(todo.getDueDate(), 'yyyy-MM-dd');
-
-        return todaysDate === todoDueDate;
+        return todo.getProjectId() == projectId;
     });
 
+    // Sort the todos
     todoListFiltered = sortTasks(sortBy, todoListFiltered);
 
     if(todoListFiltered.length > 1) { 
@@ -158,11 +166,11 @@ const renderTodayPage = () => {
 
     // Append content
     buttonContainer.appendChild(addTodoBtn);
-    todayPageContainer.appendChild(pageTitle);
-    todayPageContainer.appendChild(buttonContainer);
-    todayPageContainer.appendChild(todosListContainer);
+    projectPageContainer.appendChild(pageTitle);
+    projectPageContainer.appendChild(buttonContainer);
+    projectPageContainer.appendChild(todosListContainer);
 
-    return todayPageContainer;
+    return projectPageContainer;
 }
 
-export { renderTodayPage };
+export { renderProjectPage };

@@ -5,17 +5,17 @@ let id = 0;
 
 const getId = () => id;
 
-function init()
+function initTodoController()
 {
   subscribe('todoAdded', addTodo);
 };
 
 function addTodo(todoObj) {
     todoObj.setId(++id);
-    todosContainer.push(projectObj);
+    todosContainer.push(todoObj);
     console.log("Todo added");
 }
 
-function getProjects() { return todosContainer; }
+function getTodos() { return todosContainer; }
 
-export { getProjects, addTodo, init, getId };
+export { getTodos, addTodo, initTodoController, getId };

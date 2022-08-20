@@ -1,5 +1,6 @@
 import { Project } from "./project";
 import { publish } from "./pubsub";
+import { updateProjectList } from "./storage"
 
 function renderForm(){
     const body = document.querySelector('body');
@@ -45,7 +46,8 @@ function renderForm(){
     createBtn.addEventListener('click', (e) => {
         e.preventDefault();
         const project = Project(input.value);
-        publish('projectAdded', project);
+        publish('projectCreated', project);
+        updateProjectList(project);
         closeForm(body, pageContainer);
     });
 

@@ -2,6 +2,7 @@ function MenuItem(name, isActive) {
 
     let events = [];
     let classList = [];
+    let id = "";
 
     const getName = () => name;
     const getEvents = () => events;
@@ -14,8 +15,10 @@ function MenuItem(name, isActive) {
       events.push({ event, handler });
     }
     const getClassList = () => classList;
+    const getId = () => id;
+    const setId = (itemId) => id = itemId;
 
-    return { getName, addEvent, getEvents, getActiveStatus, addStyleClass, getClassList };
+    return { getName, addEvent, getEvents, getActiveStatus, addStyleClass, getClassList, getId, setId };
 }
 
 export { MenuItem };

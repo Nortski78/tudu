@@ -12,6 +12,12 @@ h1 {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+h2 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
 li {
     list-style: none;
 }
@@ -22,7 +28,7 @@ li:hover {
 }
 
 nav {
-    width: 90%;
+    
     padding: 40px 0 0 30px;
 }
 
@@ -34,16 +40,61 @@ nav {
 }
 
 header {
+    display: flex;
+    flex-direction: row;
     width: 100%;
     background-color: #333;
     border-bottom: 1px solid rgba(0, 0, 0, 0.2);
     color: white;
+    height: auto;
+    padding: 20px 20px 20px 20px;
 }
 
 footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
     width: 100%;
     background-color: #333;
     color: white;
+    padding: 10px 20px 10px 20px;
+    height: auto;
+    line-height: 2rem;
+}
+
+#footer-copyright {
+    height: 2rem;
+    line-height: 2rem;
+    font-size: 1rem;
+    margin-right: 10px;
+}
+
+#footer-git-icon {
+    -webkit-mask: url('github-brands.svg') no-repeat;
+    mask: url('github-brands.svg') no-repeat;
+    width: 2.0rem;
+    height: 2.0rem;
+    background: white;
+}
+
+#footer-git-icon:hover {
+    -webkit-transform: rotate(360deg) scale(1.1);
+    transform: rotate(360deg) scale(1.1);
+}
+
+#logo {
+    -webkit-mask: url('tick-logo.svg') no-repeat;
+    mask: url('tick-logo.svg') no-repeat;
+    width: 3.0rem;
+    height: 3.0rem;
+    margin-right: 1rem;
+    background: white;
+}
+
+#logo-text {
+    height: 3rem;
+    line-height: 3rem;
+    font-size: 2rem;
 }
 
 #content-container {
@@ -58,12 +109,14 @@ footer {
     height: 100%;
     background-color: #ddd;
     display: flex;
+    flex-direction: column;
     flex-shrink: 0;
     box-shadow: 3px 0px 10px 0px rgba(0, 0, 0, 0.2);
 }
 
 #main-content {
     width: 80%;
+    padding: 55px 0 0 0;
     display: flex;
     justify-content: center;
     background-color: #eee;
@@ -80,24 +133,34 @@ footer {
 }
 
 .menu-item {
-    margin: 0 0 20px 0;
+    margin: 0 20px 20px 0;
     padding: 10px 0 10px 10px;
     border-radius: 10px;
     font-size: 1.5rem;
     font-weight: bold;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    cursor: pointer;
+    transition: all .2s ease-out;
+}
+
+.menu-item:hover {
+    padding-left: 20px;
+    background-color: #ccc;
+    box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.2);
 }
 
 .add-project-btn {
     font-size: 1rem;
     border-radius: 10px;
-    padding: 10px 0 10px 10px;
+    padding: 10px 0 10px 0px;
+    margin: 10px 20px 0 0;
+    transition: all .2s ease-out;
 }
 
 .add-project-btn:hover {
     background-color: #ccc;
     box-shadow: none;
-    padding-left: 15px;
+    padding-left: 10px;
 }
 
 .home-btn:before{
@@ -155,6 +218,7 @@ footer {
     display: flex;
     justify-content: center;
     align-items: center;
+    transition: all .2s ease-out;
 }
 
 .hidden {
@@ -202,12 +266,16 @@ footer {
 }
 
 .projects-list {
-    width: 100%;
+    width: 90%;
     min-height:auto;
     max-height: 200px;
     overflow: auto;
     font-size: 1rem;
-    background-color:#eee;
+    margin: 10px 0 0 0;
+    background-color: #fff;
+    border: 1px solid #d5d9d9;
+    border-radius: 8px;
+    box-shadow: rgba(217, 215, 213, 1.0) 0 2px 5px 0;
 }
 
 .form-item input[type="radio"] {
@@ -243,37 +311,355 @@ footer {
     background-color: #dfd;
 }
 
-#add-todo-form-container {
+.todo-form-container {
     width: 400px;
     min-height: 250px;
     background-color: white;
     border-radius: 10px;
     display: flex;
+    flex-direction: column;
 }
 
-#add-todo-form {
+.todo-form {
     width: 100%;
 }
 
 #add-todo-form-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
     width: 100%;
     color: white;
     background-color: black;
     border-radius: 10px 10px 0 0;
-    font-size: 1;
-    padding: 10px 0 10px 10px;
+    font-size: 1rem;
+    padding: 10px;
 }
 
-#add-todo-form-content {
+.todo-form-content {
     width: 100%;
     display: flex;
     justify-content: center;
     flex-direction: row;
     flex-wrap: wrap;
+    margin-bottom: 20px;
 }
 
 input[type="radio"] {
     width: 10;
     height: 10;
     border: 1 solid black;
+}
+
+.task-menu-item:hover{
+    background-color: #ccc;
+    box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.2);
+}
+
+.projects-module {
+    padding: 40px 0 0 40px;
+}
+
+.main-content-data {
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    height: 100%;
+}
+
+#home-btn:before{
+    content:''; 
+    display:inline-block; 
+    height:1em; 
+    width:1em; 
+    background-image:url('house-solid.svg'); 
+    background-size:contain; 
+    background-repeat:no-repeat; 
+    padding-left: 2em; 
+}
+
+#today-btn:before{
+    content:''; 
+    display:inline-block; 
+    height:1em; 
+    width:1em; 
+    background-image:url('calendar-day-solid.svg'); 
+    background-size:contain; 
+    background-repeat:no-repeat; 
+    padding-left: 2em; 
+}
+
+#week-btn:before{
+    content:''; 
+    display:inline-block; 
+    height:1em; 
+    width:1em; 
+    background-image:url('calendar-days-solid.svg'); 
+    background-size:contain; 
+    background-repeat:no-repeat; 
+    padding-left: 2em; 
+}
+
+.todo-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+    background-color: #ddd;
+}
+
+.todo-item:hover {
+    box-shadow: 3px 3px 5px 2px rgb(0 0 0 / 20%);
+    transition: all .2s ease-out;
+}
+
+.todo-complete {
+    margin-right: 1.0rem;
+    height: 1.0rem;
+    width: 1.0rem;
+    border-radius: 3px;
+    border: 2px solid #3ba395;
+}
+
+.todo-complete-checked {
+    height: 1.0rem;
+    width: 1.0rem;
+    display: block;
+    background: url(check.png), #3ba395;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.todo-title {
+    margin-right: auto;
+    font-size: 1rem;
+    color: rgb(80, 31, 58);
+}
+
+.todo-title-checked {
+    color: rgba(80, 31, 58, 0.5);
+    text-decoration: line-through;
+}
+
+.todo-details {
+    position: relative;
+    margin-right: 1rem;
+    padding: 0.5rem 0.5rem;
+    border: 1px solid #3ba395;
+    border-radius: 3px;
+    font-size: 1rem;
+    color: #3ba395;
+    text-transform: uppercase;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all .3s;
+}
+
+.todo-details-checked {
+    border: 1px solid rgba(59, 163, 149, 0.5);
+    color: rgba(59, 163, 149, 0.5);
+}
+
+.todo-details:hover {
+    background-color: #3ba395;
+    color: white;
+}
+
+.todo-date {
+    margin-right: 1rem;
+    width: 4.5rem;
+    font-size: 1rem;
+    color: #501f3a;
+}
+
+.todo-date-checked {
+    color: rgba(80, 31, 58, 0.5);
+}
+
+.todo-edit-icon {
+    -webkit-mask: url('pen-to-square-solid.svg') no-repeat;
+    mask: url('pen-to-square-solid.svg') no-repeat;
+    width: 1.0rem;
+    height: 1.0rem;
+    margin-right: 1rem;
+    cursor: pointer;
+    transition: all .2s;
+    background: #501f3a;
+}
+
+.todo-edit-icon-checked {
+    background: rgba(80, 31, 58, 0.5);
+}
+
+.todo-bin-icon {
+    -webkit-mask: url('trash-can-solid.svg') no-repeat;
+    mask: url('trash-can-solid.svg') no-repeat;
+    width: 1.0rem;
+    height: 1.0rem;
+    margin-right: 1rem;
+    cursor: pointer;
+    transition: all .2s;
+    background: #501f3a;
+}
+
+.todo-bin-icon-checked {
+    background: rgba(80, 31, 58, 0.5);
+}
+
+.high-priority {
+    border-left: 3px solid red;
+}
+
+.medium-priority {
+    border-left: 3px solid orange;
+}
+
+.low-priority {
+    border-left: 3px solid green;
+}
+
+#details-popup-container {
+    z-index: 1;
+    top: 0;
+    left: 0;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.todo-details-popup {
+    width: 400px;
+    height: 250px;
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
+}
+
+.todo-details-popup-data {
+    display: flex;
+    flex-direction: row;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+.todo-button {
+    margin: 10px 0 10px 0;
+    width: 100%;
+    height: 2rem;
+    line-height: 1.5rem;
+    background-color: #fff;
+    border: 1px solid #d5d9d9;
+    border-radius: 8px;
+    box-shadow: rgba(213, 217, 217, .5) 0 2px 5px 0;
+    box-sizing: border-box;
+    color: #0f1111;
+    display: inline-block;
+    font-family: "Amazon Ember",sans-serif;
+    font-size: 1rem;
+    line-height: 2rem;
+    padding: 0 10px 0 11px;
+    text-align: center;
+    text-decoration: none;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    vertical-align: middle;
+    overflow: hidden;
+    transition: all .2s ease-out;
+}
+
+.todo-button:hover {
+  background-color: #f7fafa;
+}
+
+.todo-button:focus {
+  border-color: #008296;
+  box-shadow: rgba(213, 217, 217, .5) 0 2px 5px 0;
+  outline: 0;
+}
+
+.project-button{    
+    width: 100%;
+    height: 2rem;
+    line-height: 1.5rem;
+    background-color: #fff;    
+    box-shadow: rgb(122, 124, 124) 0 1px 3px 0;
+    color: #0f1111;
+    display: inline-block;
+    font-family: "Amazon Ember",sans-serif;
+    font-size: 1rem;
+    line-height: 2rem;
+    padding: 0 10px 0 11px;
+    text-align: left;
+    text-decoration: none;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    vertical-align: middle;
+    transition: all .2s ease-out;
+}
+
+.project-button:hover {
+    padding-left: 15px;
+    background-color: #f7fafa;
+    
+}
+
+.project-button:focus {
+    border-color: #008296;
+    box-shadow: rgba(213, 217, 217, .5) 0 2px 5px 0;
+    outline: 0;
+  }
+
+  .todo-sort-order{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    width: 100%;
+    font-size: 0.8rem;
+    height: 2rem;
+    line-height: 2rem;
+    vertical-align: middle;
+    margin: 0 0 10px 0;
+  }
+
+  .sort-button {
+    margin: 0 0 15px 5px;
+    width: auto;
+    height: 2rem;
+    background-color: #fff;
+    border: 1px solid #d5d9d9;
+    border-radius: 8px;
+    box-shadow: rgba(213, 217, 217, .5) 0 2px 5px 0;
+    box-sizing: border-box;
+    color: #0f1111;
+    display: inline-block;
+    font-family: "Amazon Ember",sans-serif;
+    font-size: 0.9rem;
+    line-height: 2rem;
+    padding: 0 10px 0 11px;
+    text-align: center;
+    text-decoration: none;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    vertical-align: middle;
+    overflow: hidden;
+    transition: all .2s ease-out;
+}
+
+.sort-button:hover {
+  background-color: #f7fafa;
+}
+
+.sort-button:focus {
+  border-color: #008296;
+  box-shadow: rgba(213, 217, 217, .5) 0 2px 5px 0;
+  outline: 0;
 }

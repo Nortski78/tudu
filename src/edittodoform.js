@@ -1,13 +1,17 @@
-import Todo from "./todo";
 import { publish } from "./pubsub";
-import { getProjects } from "./projectscontroller";
+import { getTodos } from "./todoscontroller";
 import { format, parse } from 'date-fns';
 
-function renderForm(){
+const todos = getTodos();
 
-    const projects = getProjects(); // needed for project id's
-    
+// Render the form
+function renderTodoEditForm(todoId){
+    console.log("In renderEditForm()");
+
+    // Cache DOM
     const body = document.querySelector('body');
+
+    // Create elements
     const pageContainer = document.createElement('div');
     const formContainer = document.createElement('div');
     const form = document.createElement('form');
@@ -19,8 +23,6 @@ function renderForm(){
     const title = document.createElement('input');
     const descDiv = document.createElement('div');
     const desc = document.createElement('textarea');
-    const projectsDiv = document.createElement('div');
-    const projectsList = document.createElement('select');
     const priorityLow = document.createElement('input');
     const priorityMedium = document.createElement('input');
     const priorityHigh = document.createElement('input');
@@ -31,11 +33,10 @@ function renderForm(){
     const btnsDiv = document.createElement('div');
     const dateDiv = document.createElement('div');
     const datePicker = document.createElement('input');
-    const createBtn = document.createElement('button');
+    const editBtn = document.createElement('button');
 
+    // Set classes and attributes
     title.setAttribute('type', 'text');
-    title.setAttribute('placeholder', 'Todo title');
-    title.classList.add('form-input');
     title.autofocus = true;
 
     descDiv.classList.add('form-item');
@@ -46,28 +47,11 @@ function renderForm(){
     datePicker.setAttribute('type', 'date');
     const setMin = format(new Date(), 'yyyy-MM-dd');
     datePicker.setAttribute('min', setMin);
-    datePicker.setAttribute('value', setMin);
-    dateDiv.appendChild(datePicker);
-
-    projectsDiv.classList.add('form-item');
-    const opt = document.createElement('option');
-    opt.textContent = "";
-    opt.setAttribute('value', "");
-    projectsList.appendChild(opt);
-
-    projects.forEach(item => {
-        const opt = document.createElement('option');
-        opt.textContent = item.getName();
-        opt.setAttribute('value', item.getId());
-        projectsList.appendChild(opt);
-    })
-    projectsDiv.appendChild(projectsList);
 
     radiosDiv.classList.add('form-item');
     priorityLow.setAttribute('name', 'priority');
     priorityLow.setAttribute('id', 'low');
     priorityLow.setAttribute('value', 'low');
-    priorityLow.setAttribute('checked', 'checked');
     priorityLow.setAttribute('type', 'radio');
     priorityMedium.setAttribute('name', 'priority');
     priorityMedium.setAttribute('id', 'medium');
@@ -77,7 +61,7 @@ function renderForm(){
     priorityHigh.setAttribute('id', 'high');
     priorityHigh.setAttribute('value', 'high');
     priorityHigh.setAttribute('type', 'radio');
-   
+
     priorityLowLabel.setAttribute('for', 'low');
     priorityLowLabel.innerText = 'Low';
     priorityMediumLabel.setAttribute('for', 'medium');
@@ -85,53 +69,79 @@ function renderForm(){
     priorityHighLabel.setAttribute('for', 'high');
     priorityHighLabel.innerText = 'High';
 
+    inputDiv.classList.add('form-item');
+    btnsDiv.classList.add('form-item');
+    formContainer.classList.add('todo-form-container');
+    formContent.classList.add('todo-form-content');
+    form.classList.add('todo-form');
+
+    formHeader.setAttribute('id', 'add-todo-form-header');
+    cancelBtn.classList.add('pointer');
+
+    pageContainer.setAttribute('id', 'form-popup-container');
+
+    editBtn.innerText = "Confirm changes";
+    cancelBtn.innerText = "X";    
+
+    formTitle.textContent = "Edit todo details...";
+
+    // Append elements
+    formHeader.appendChild(formTitle);
+    formHeader.appendChild(cancelBtn);
+    dateDiv.appendChild(datePicker);
     radiosDiv.appendChild(priorityLow);
     radiosDiv.appendChild(priorityLowLabel);
     radiosDiv.appendChild(priorityMedium);
     radiosDiv.appendChild(priorityMediumLabel);
     radiosDiv.appendChild(priorityHigh);
     radiosDiv.appendChild(priorityHighLabel);
-
-    inputDiv.classList.add('form-item');
-    btnsDiv.classList.add('form-item');
-    formContainer.classList.add('todo-form-container');
-    formContent.classList.add('todo-form-content');
-    form.classList.add('todo-form');
-    cancelBtn.classList.add('pointer');
-    
-    
-    formHeader.setAttribute('id', 'add-todo-form-header');    
-    
-    pageContainer.setAttribute('id', 'form-popup-container');
-
-    createBtn.innerText = "Create";
-    cancelBtn.innerText = "X";    
-
-    formHeader.textContent = "Create new todo...";
-
-    formHeader.appendChild(formTitle);
-    formHeader.appendChild(cancelBtn);
-    btnsDiv.appendChild(createBtn);
-    //btnsDiv.appendChild(cancelBtn);
+    btnsDiv.appendChild(editBtn);
     inputDiv.appendChild(title);
     formContent.appendChild(inputDiv);
     formContent.appendChild(descDiv);
     formContent.appendChild(radiosDiv);
     formContent.appendChild(dateDiv);
-    if(getProjects().length > 0) {formContent.appendChild(projectsDiv)};
     formContent.appendChild(btnsDiv);
     form.appendChild(formHeader);
     form.appendChild(formContent);
     formContainer.appendChild(form);
     pageContainer.appendChild(formContainer);
-    body.appendChild(pageContainer); 
 
-    createBtn.addEventListener('click', (e) => {
+    let projectId = '';
+    let isCompelted = '';
+    for(const todo of todos) {
+        if(todo.getId() == todoId) {
+            title.value = todo.getTitle();
+            desc.value = todo.getDescription();
+            projectId = todo.getProjectId();
+            isCompelted = todo.getCompletedStatus();
+            datePicker.setAttribute('value', format(todo.getDueDate(), 'yyyy-MM-dd'));
+            const priority = todo.getPriority();
+
+            if(priority == 'low') priorityLow.setAttribute('checked', 'checked');
+            else if (priority == 'medium') priorityMedium.setAttribute('checked', 'checked');
+            else if (priority == 'high') priorityHigh.setAttribute('checked', 'checked');
+
+            break;
+        }
+    }
+
+    editBtn.addEventListener('click', (e) => {
         e.preventDefault();
+        console.log("In edit button click");
         const priority = document.querySelector('input[name="priority"]:checked').value;
-        const todo = Todo(title.value, desc.value, parseInt(projectsList.value), priority, stringToDate(datePicker.value));
-        publish('todoCreated', todo); 
-        //InsertIntoTodoList(todo); // Used pubsub instead
+
+        const updatedTodo = {
+            "id": todoId,
+            "title": title.value,
+            "description": desc.value,
+            "priority": priority,
+            "dueDate": stringToDate(datePicker.value),
+            "isCompleted": isCompelted,
+            "projectId": projectId
+        };
+        console.log(updatedTodo);
+        publish('todoEdited', updatedTodo); 
         closeForm(body, pageContainer);
     });
 
@@ -139,7 +149,8 @@ function renderForm(){
         e.preventDefault();
         closeForm(body, pageContainer);
     });
-
+    
+    body.appendChild(pageContainer);
     return pageContainer;
 }
 
@@ -157,4 +168,4 @@ function stringToDate(date){
   return result;
 }
 
-export { renderForm };
+export { renderTodoEditForm };
