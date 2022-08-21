@@ -8,12 +8,13 @@ function renderForm(){
     const formContainer = document.createElement('div');
     const form = document.createElement('form');
     const formHeader = document.createElement('div');
+    const formTitle = document.createElement('div');
     const formContent = document.createElement('div');
     const inputDiv = document.createElement('div');
     const input = document.createElement('input');
     const btnsDiv = document.createElement('div');
     const createBtn = document.createElement('button');
-    const cancelBtn = document.createElement('button');
+    const cancelBtn = document.createElement('div');
 
     input.setAttribute('type', 'text');
     input.setAttribute('id', 'project-name-input');
@@ -27,13 +28,18 @@ function renderForm(){
     formContainer.setAttribute('id', 'add-project-form-container');
     form.setAttribute('id', 'add-project-form');
     pageContainer.setAttribute('id', 'form-popup-container');
+    createBtn.classList.add('create-button');
+    cancelBtn.classList.add('pointer');
+
     createBtn.innerText = "Create";
-    cancelBtn.innerText = "Cancel";
+    cancelBtn.innerText = "X";
 
-    formHeader.textContent = "Create new project...";
+    formTitle.textContent = "Create new project...";
 
+    formHeader.appendChild(formTitle);
+    formHeader.appendChild(cancelBtn);
     btnsDiv.appendChild(createBtn);
-    btnsDiv.appendChild(cancelBtn);
+    //btnsDiv.appendChild(cancelBtn);
     inputDiv.appendChild(input);
     formContent.appendChild(inputDiv);
     formContent.appendChild(btnsDiv);

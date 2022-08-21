@@ -35,11 +35,12 @@ function renderForm(){
 
     title.setAttribute('type', 'text');
     title.setAttribute('placeholder', 'Todo title');
-    title.classList.add('form-input');
+    title.classList.add('edit-title');
     title.autofocus = true;
 
     descDiv.classList.add('form-item');
     desc.setAttribute('rows', '10');
+    desc.classList.add('edit-desc');
     descDiv.appendChild(desc);
 
     dateDiv.classList.add('form-item');
@@ -47,13 +48,12 @@ function renderForm(){
     const setMin = format(new Date(), 'yyyy-MM-dd');
     datePicker.setAttribute('min', setMin);
     datePicker.setAttribute('value', setMin);
+    datePicker.classList.add('edit-date');
     dateDiv.appendChild(datePicker);
 
     projectsDiv.classList.add('form-item');
-    const opt = document.createElement('option');
-    opt.textContent = "";
-    opt.setAttribute('value', "");
-    projectsList.appendChild(opt);
+    projectsList.classList.add('projects-dropdown');
+    projectsList.innerHTML = '<option value="" disabled selected>Select a project</option>';
 
     projects.forEach(item => {
         const opt = document.createElement('option');
@@ -64,6 +64,7 @@ function renderForm(){
     projectsDiv.appendChild(projectsList);
 
     radiosDiv.classList.add('form-item');
+    radiosDiv.classList.add('edit-radios');
     priorityLow.setAttribute('name', 'priority');
     priorityLow.setAttribute('id', 'low');
     priorityLow.setAttribute('value', 'low');
@@ -97,6 +98,7 @@ function renderForm(){
     formContainer.classList.add('todo-form-container');
     formContent.classList.add('todo-form-content');
     form.classList.add('todo-form');
+    createBtn.classList.add('create-button');
     cancelBtn.classList.add('pointer');
     
     
@@ -105,8 +107,7 @@ function renderForm(){
     pageContainer.setAttribute('id', 'form-popup-container');
 
     createBtn.innerText = "Create";
-    cancelBtn.innerText = "X";    
-
+    cancelBtn.innerText = "X";
     formHeader.textContent = "Create new todo...";
 
     formHeader.appendChild(formTitle);

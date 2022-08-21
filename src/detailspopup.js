@@ -33,6 +33,7 @@ detailsContainer.classList.add('todo-form-container');
 detailsDiv.classList.add('todo-details-popup-data');
 formHeader.setAttribute('id', 'add-todo-form-header');
 cancelBtn.classList.add('pointer');
+title.classList.add('todo-details-popup-title');
 
 // Add text
 formTitle.innerText = "Edit todo details...";

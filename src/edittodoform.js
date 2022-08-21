@@ -37,9 +37,11 @@ function renderTodoEditForm(todoId){
 
     // Set classes and attributes
     title.setAttribute('type', 'text');
+    title.classList.add('edit-title');
     title.autofocus = true;
 
     descDiv.classList.add('form-item');
+    desc.classList.add('edit-desc');
     desc.setAttribute('rows', '10');
     descDiv.appendChild(desc);
 
@@ -47,8 +49,12 @@ function renderTodoEditForm(todoId){
     datePicker.setAttribute('type', 'date');
     const setMin = format(new Date(), 'yyyy-MM-dd');
     datePicker.setAttribute('min', setMin);
+    datePicker.classList.add('edit-date');
+
+    editBtn.classList.add('create-button');
 
     radiosDiv.classList.add('form-item');
+    radiosDiv.classList.add('edit-radios');
     priorityLow.setAttribute('name', 'priority');
     priorityLow.setAttribute('id', 'low');
     priorityLow.setAttribute('value', 'low');
@@ -63,6 +69,7 @@ function renderTodoEditForm(todoId){
     priorityHigh.setAttribute('type', 'radio');
 
     priorityLowLabel.setAttribute('for', 'low');
+    priorityLowLabel.classList.add('low-label');
     priorityLowLabel.innerText = 'Low';
     priorityMediumLabel.setAttribute('for', 'medium');
     priorityMediumLabel.innerText = 'Medium';
