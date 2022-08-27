@@ -108,7 +108,7 @@ function renderForm(){
 
     createBtn.innerText = "Create";
     cancelBtn.innerText = "X";
-    formHeader.textContent = "Create new todo...";
+    formHeader.textContent = "Create new TuDu...";
 
     formHeader.appendChild(formTitle);
     formHeader.appendChild(cancelBtn);

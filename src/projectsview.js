@@ -15,17 +15,35 @@ const renderProjectsModule = () => {
     if( projects.length > 0) {
         projects.forEach(item => {
             const projectDiv = document.createElement('div');
+            const title = document.createElement('div');
+            const deleteBtn = document.createElement('div');
+
             projectDiv.setAttribute('project-id', item.getId());
             projectDiv.classList.add('project-button');
             projectDiv.classList.add('pointer');
-            projectDiv.innerText = item.getName();
+            title.classList.add('project-title');
+            deleteBtn.classList.add('project-delete-button');
+            title.innerText = item.getName();
+            deleteBtn.innerText = 'x';
+            projectDiv.appendChild(title);
+            projectDiv.appendChild(deleteBtn);
             projectsListDiv.appendChild(projectDiv);
 
             // Bind events
-            projectDiv.addEventListener('click', () => {
+            title.addEventListener('click', () => {
                 const projectId = parseInt(projectDiv.getAttribute('project-id'));
                 publish('projectPageSelected', { "value": projectId, "type": 'project id' });
             });
+            projectDiv.addEventListener('mouseover', () => {
+                deleteBtn.classList.add('show-button');
+            })
+            projectDiv.addEventListener('mouseout', () => {
+                deleteBtn.classList.remove('show-button');
+            })
+            deleteBtn.addEventListener('click', () => {
+                console.log('delete project selected');
+                publish('deleteProjectSelected', item.getId());
+            })
         })        
     }
 

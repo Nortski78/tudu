@@ -31,7 +31,7 @@ sortStatusBtn.classList.add('pointer');
 
 // Add text
 pageTitle.innerText = "Week";
-addTodoBtn.innerText = "Create new todo";
+addTodoBtn.innerText = "Create new TuDu";
 sortHeading.innerText = "Sort by:";
 sortDateBtn.innerText = "Date";
 sortPriorityBtn.innerText = "Priority";

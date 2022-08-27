@@ -1,8 +1,9 @@
 //projectscontroller.js
 
 import { publish, subscribe } from "./pubsub";
-import { getProjectListFromLocalStorage } from "./storage";
+import { getProjectListFromLocalStorage, removeFromProjectList } from "./storage";
 import { Project } from "./project";
+import { deleteTodo, getTodos } from "./todoscontroller";
 
 let storageProjects = getProjectListFromLocalStorage();
 let projectsContainer = [];
@@ -14,6 +15,7 @@ function initProjectsController()
   populateProjectsContainer();
   subscribe('projectCreated', addProject);
   subscribe('todoAdded', addTodo);
+  subscribe('deleteProjectSelected', removeProject);
 };
 
 function populateProjectsContainer() {
@@ -25,7 +27,7 @@ function populateProjectsContainer() {
       project.setTodoContainer(item.todoContainer);
 
       projectsContainer.push(project);
-      console.log(item);
+      //console.log(item);
     })
   }
 }
@@ -40,7 +42,6 @@ function addProject(projectObj) {
   projectObj.setId(++id);
   projectsContainer.push(projectObj);
   localStorage.setItem("projectId", id);
-  console.log("Project added");
   publish('projectAdded');
 }
 
@@ -54,6 +55,18 @@ function addTodo(todoObj) {
   })
 }
 
+function getProjectId() { return id }
+
+function removeProject(projectId) {  
+  projectsContainer.forEach((item, index) => {
+    if(item.getId() == projectId) {
+      projectsContainer.splice(index, 1);
+      publish('projectDeleted', projectId);
+      removeFromProjectList(projectId);
+    }
+  })
+}
+
 function getProjects() { return projectsContainer; }
 
-export { getProjects, addProject, initProjectsController };
+export { getProjects, addProject, initProjectsController, getProjectId };

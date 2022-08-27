@@ -16,6 +16,7 @@ function initTodosController()
   subscribe('todoCreated', addTodo);
   subscribe('todoDeleteSelected', deleteTodo);
   subscribe('todoEdited', updateTodo);
+  subscribe('projectDeleted', filterTodos)
 };
 
 function populateTodosContainer() {
@@ -31,7 +32,7 @@ function populateTodosContainer() {
       if(item.projectId) todo.setProjectId(item.projectId);
 
       todosContainer.push(todo);
-      console.log(item);
+      //console.log(item);
     })
   }
 }
@@ -45,14 +46,11 @@ function addTodo(todoObj) {
 }
 
 function deleteTodo(id) {
-  console.log(id);
   todosContainer.forEach((item, index) => {
     if(item.getId() == id){
-      todosContainer.splice(index, 1);
-      console.log(todosContainer);
-      console.log('Todo deleted');
-      //removeFromTodoList(id); // Used pubsub method instead
+      todosContainer.splice(index, 1);      
       publish('todoDeleted', id);
+      return;
     }
   })
 }
@@ -69,6 +67,14 @@ function updateTodo(todoObj) {
       publish('todoUpdated');
     }
   })
+}
+
+function filterTodos(projectId) {
+  todosContainer = todosContainer.filter(obj => {
+    return obj.getProjectId() != projectId;
+  })
+  console.log(todosContainer);
+  publish('todosFiltered', {"value": "home", "type": "page"});
 }
 
 function getTodos() { return todosContainer; }

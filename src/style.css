@@ -582,14 +582,16 @@ input[type="radio"] {
   outline: 0;
 }
 
-.project-button{    
+.project-button{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;    
     width: 100%;
     height: 2rem;
     line-height: 1.5rem;
     background-color: #fff;    
     box-shadow: rgb(122, 124, 124) 0 1px 3px 0;
     color: #0f1111;
-    display: inline-block;
     font-family: "Amazon Ember",sans-serif;
     font-size: 1rem;
     line-height: 2rem;
@@ -614,6 +616,20 @@ input[type="radio"] {
     box-shadow: rgba(213, 217, 217, .5) 0 2px 5px 0;
     outline: 0;
   }
+
+.project-delete-button {
+    width: 10%;
+    text-align: right;
+    color: #f7fafa;
+}
+
+.show-button {
+    color: #0f1111;
+}
+
+.project-title {
+    width: 80%;
+}
 
   .todo-sort-order{
     display: flex;

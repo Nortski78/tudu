@@ -33,6 +33,10 @@ subscribe('projectAdded', () => {
     renderProjectsModule();
     updateSidebar();
 });
+subscribe('projectDeleted', () => { 
+    renderProjectsModule();
+    updateSidebar();
+});
 subscribe('createTodoSelected', () => {
     renderTodoForm();
 })

@@ -3,6 +3,7 @@ import { renderTodayPage } from "./todaypage";
 import { renderWeekPage } from "./weekpage";
 import { renderProjectPage } from "./projectpage";
 import { subscribe } from "./pubsub";
+import differenceInCalendarWeeksWithOptions from "date-fns/esm/fp/differenceInCalendarWeeksWithOptions/index.js";
 
 let currentPage = {"value": 'home', "type": 'page'};
 
@@ -17,6 +18,7 @@ const initMaincontent = () => {
     subscribe('todoAdded', updatePage); 
     subscribe('todoDeleted', updatePage);   
     subscribe('todoUpdated', updatePage);
+    subscribe('projectDeleted', setCurrentPage);
 }
 
 const renderMainContent = (page = currentPage) => {
@@ -48,7 +50,7 @@ const renderMainContent = (page = currentPage) => {
     return mainContentDiv;
 }
 
-const updatePage = (todoObj) => {
+const updatePage = () => {
 
     if(currentPage.value === 'home') { 
         renderMainContent();
@@ -59,6 +61,18 @@ const updatePage = (todoObj) => {
     } else if(currentPage.type === 'project id') {
         console.log(currentPage);
         renderMainContent();
+    }
+}
+
+const setCurrentPage = (projectId) => {
+    console.log(projectId);
+    console.log(currentPage);
+    if (currentPage.type == 'project id' && currentPage.value == projectId) {
+        console.log('here');
+        currentPage.value = 'home';
+        currentPage.type = 'page';
+        console.log(currentPage);
+        updatePage();
     }
 }
 

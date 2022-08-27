@@ -6,7 +6,8 @@ function initLocalStorage() {
     subscribe('todoDeleted', removeFromTodoList);
     subscribe('todoAdded', insertIntoTodoList);
     subscribe('todoUpdated', editTodoList);
-    subscribe( 'todoIsCompletedToggled', editTodoList);
+    subscribe('todoIsCompletedToggled', editTodoList);
+    subscribe('todosFiltered', editTodoList);
 }
 
 function insertIntoTodoList(todoObj){
@@ -63,7 +64,7 @@ function editTodoList() {
 function updateToDosToLocalStorage(todos) {    
 
     localStorage.setItem("todoList", JSON.stringify(todos));
-    console.log(localStorage.getItem("todoList"));
+    //console.log(localStorage.getItem("todoList"));
 }
 
 function getTodoListFromLocalStorage() { return JSON.parse(localStorage.getItem("todoList")); }
@@ -82,6 +83,18 @@ function updateProjectList(projectObj){
     addProjectsToLocalStorage(projects);
 }
 
+function removeFromProjectList(projectId) {
+    let projects = JSON.parse(localStorage.getItem("projectList") || "[]");
+
+    projects.forEach((item, index) => {
+        if(item.id == projectId) {
+            projects.splice(index, 1);
+        }
+    })
+
+    addProjectsToLocalStorage(projects);
+}
+
 function addProjectsToLocalStorage(projects) {    
 
     localStorage.setItem("projectList", JSON.stringify(projects));
@@ -90,4 +103,4 @@ function addProjectsToLocalStorage(projects) {
 
 function getProjectListFromLocalStorage() { return JSON.parse(localStorage.getItem("projectList")); }
 
-export {initLocalStorage, insertIntoTodoList, removeFromTodoList, updateProjectList, getTodoListFromLocalStorage, getProjectListFromLocalStorage};
+export {initLocalStorage, insertIntoTodoList, removeFromTodoList, updateProjectList, getTodoListFromLocalStorage, getProjectListFromLocalStorage, removeFromProjectList};
