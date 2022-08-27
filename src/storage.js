@@ -34,6 +34,7 @@ function removeFromTodoList(todoId) {
     todos.forEach((item, index) => {
         if(item.id == todoId) {
             todos.splice(index, 1);
+            return;
         }
     })
 
@@ -89,6 +90,7 @@ function removeFromProjectList(projectId) {
     projects.forEach((item, index) => {
         if(item.id == projectId) {
             projects.splice(index, 1);
+            return;
         }
     })
 
