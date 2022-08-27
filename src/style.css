@@ -140,7 +140,8 @@ footer {
     font-weight: bold;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     cursor: pointer;
-    transition: all .2s ease-out;
+    /*transition: all .2s ease-out;*/
+    transition: all .5s cubic-bezier(0, 0.9, 0, 1.27);
 }
 
 .menu-item:hover {
