@@ -34,7 +34,7 @@ function renderForm(){
     const createBtn = document.createElement('button');
 
     title.setAttribute('type', 'text');
-    title.setAttribute('placeholder', 'Todo title');
+    title.setAttribute('placeholder', 'TuDu title');
     title.classList.add('edit-title');
     title.autofocus = true;
 
